@@ -2,7 +2,7 @@ package com.craftinginterpreters.lox;
 
 public class Token {
     private final TokenType type;
-    private final String lexeme;
+    final String lexeme;
     private final Object literal;
     private final int line;
 

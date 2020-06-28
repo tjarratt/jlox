@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+javac src/com/craftinginterpreters/tool/GenerateAst.java -d out
+jar cf out/generate-ast.jar out/com/craftinginterpreters/tool/GenerateAst.class
+java -jar out/generate-ast.jar GenerateAst
+
+java -classpath ./out \
+      com.craftinginterpreters.tool.GenerateAst \
+      src/com/craftinginterpreters/lox
+
