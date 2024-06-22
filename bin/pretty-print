@@ -2,11 +2,24 @@
 
 set -euxo pipefail
 
+style="${1:-regular}"
+
+case $style in
+  regular)
+    impl=AstPrinter
+    ;;
+
+  reverse)
+    impl=ReversePolishNotationAstPrinter
+   ;;
+esac
+
+
 javac src/com/craftinginterpreters/lox/TokenType.java \
       src/com/craftinginterpreters/lox/Token.java \
       src/com/craftinginterpreters/lox/Expr.java \
-      src/com/craftinginterpreters/lox/AstPrinter.java -d out
+      src/com/craftinginterpreters/lox/$impl.java -d out
 
 java -classpath ./out \
-  com.craftinginterpreters.lox.AstPrinter \
+  com.craftinginterpreters.lox.$impl \
   src/com/craftinginterpreters/lox
