@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+set -euxo pipefail
+
+javac src/com/craftinginterpreters/lox/TokenType.java \
+      src/com/craftinginterpreters/lox/Token.java \
+      src/com/craftinginterpreters/lox/Expr.java \
+      src/com/craftinginterpreters/lox/AstPrinter.java -d out
+
+java -classpath ./out \
+  com.craftinginterpreters.lox.AstPrinter \
+  src/com/craftinginterpreters/lox
