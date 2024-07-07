@@ -52,7 +52,7 @@ public class Lox {
         BufferedReader bufferedInput = new BufferedReader(inputStream);
 
         while (true) {
-            System.out.println("> ");
+            System.out.print("> ");
 
             run(bufferedInput.readLine());
             hadError = false;
