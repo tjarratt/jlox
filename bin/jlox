@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+javac src/com/craftinginterpreters/lox/*.java -d out
+
+java -classpath ./out com.craftinginterpreters.lox.Lox 
