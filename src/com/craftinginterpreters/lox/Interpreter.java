@@ -14,6 +14,7 @@ public class Interpreter implements Expr.Visitor<Object> {
         if (object == null) return "nil";
         if (!(object instanceof Double)) return object.toString();
 
+        // the object must be a double, handle float / integer differences
         String text = object.toString();
         if (text.endsWith(".0")) {
             text = text.substring(0, text.length() - 2);
