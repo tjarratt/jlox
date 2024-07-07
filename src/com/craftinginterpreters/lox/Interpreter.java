@@ -1,13 +1,21 @@
 package com.craftinginterpreters.lox;
 
-public class Interpreter implements Expr.Visitor<Object> {
-    void interpret(Expr expression) {
-        try {
-            Object value = evaluate(expression);
-            System.out.println(stringify(value));
-        } catch (RuntimeError error) {
-            Lox.runtimeError(error);
+import java.util.List;
+
+public class Interpreter implements Expr.Visitor<Object>,
+                                    Stmt.Visitor<Void> {
+    void interpret(List<Stmt> statements) {
+      try {
+        for (Stmt statement : statements) {
+          execute(statement);
         }
+      } catch (RuntimeError error) {
+        Lox.runtimeError(error);
+      }
+    }
+
+    private void execute(Stmt statement) {
+      statement.accept(this);
     }
 
     private String stringify(Object object) {
@@ -21,6 +29,25 @@ public class Interpreter implements Expr.Visitor<Object> {
         }
         return text;
     }
+
+    // pragma mark - Stmt.Visitor
+
+    @Override
+    public Void visitExpressionStmt(Stmt.Expression stmt) {
+      evalulate(stmt.expression);
+
+      return null;
+    }
+
+    @Override
+    public Void visitPrintStmt(Stmt.Print stmt) {
+      Object value = evalulate(stmt.expression);
+      System.out.println(stringify(value));
+
+      return null;
+    }
+
+    // pragma mark - Expr.Visitor
 
     @Override
     public Object visitBinaryExpr(Expr.Binary expr) {
