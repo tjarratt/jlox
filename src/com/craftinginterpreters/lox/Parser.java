@@ -18,7 +18,7 @@ class Parser {
     List<Stmt> parse() {
       List<Stmt> statements = new ArrayList<>();
 
-      while !(isAtEnd()) {
+      while (!isAtEnd()) {
         statements.add(statement());
       }
 
@@ -41,7 +41,7 @@ class Parser {
       Expr expr = expression();
 
       consume(SEMICOLON, "Expect ';' after expression.");
-      return new Stmt.Expresssion(expr);
+      return new Stmt.Expression(expr);
     }
 
     private Expr expression() {
@@ -84,13 +84,14 @@ class Parser {
 
         while (match(MINUS, PLUS)) {
             Token operator = previous();
-            Expr right = multiplication();
+            Expr right = factor();
             expr = new Expr.Binary(expr, operator, right);
         }
 
         return expr;
     }
 
+    // handles multiplication OR division
     private Expr factor() {
         Expr expr = unary();
 

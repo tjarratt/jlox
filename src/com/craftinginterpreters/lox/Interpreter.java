@@ -34,14 +34,14 @@ public class Interpreter implements Expr.Visitor<Object>,
 
     @Override
     public Void visitExpressionStmt(Stmt.Expression stmt) {
-      evalulate(stmt.expression);
+      evaluate(stmt.expression);
 
       return null;
     }
 
     @Override
     public Void visitPrintStmt(Stmt.Print stmt) {
-      Object value = evalulate(stmt.expression);
+      Object value = evaluate(stmt.expression);
       System.out.println(stringify(value));
 
       return null;
