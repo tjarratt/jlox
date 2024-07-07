@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
-set -euxo pipefail
+set -euo pipefail
+
 
 style="${1:-regular}"
 
@@ -13,7 +14,6 @@ case $style in
     impl=ReversePolishNotationAstPrinter
    ;;
 esac
-
 
 javac src/com/craftinginterpreters/lox/TokenType.java \
       src/com/craftinginterpreters/lox/Token.java \
