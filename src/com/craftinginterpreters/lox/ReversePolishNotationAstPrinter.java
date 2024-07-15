@@ -37,6 +37,12 @@ public class ReversePolishNotationAstPrinter implements Expr.Visitor<String> {
     }
 
     @Override
+    public String visitLogicalExpr(Expr.Logical expr) {
+      return expr.left.toString() + " " + expr.right.toString() + " " + expr.operator.lexeme;
+    }
+
+
+    @Override
     public String visitUnaryExpr(Expr.Unary expr) {
         return expr.right.accept(this) + " " + expr.operator.lexeme;
     }
