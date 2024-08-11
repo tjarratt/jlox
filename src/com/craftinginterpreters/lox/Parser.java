@@ -187,6 +187,8 @@ class Parser {
       return new Stmt.Function(name, parameters, body);
     }
 
+    // pragma mark - parsing expressions
+
     private Expr expression() {
       return assignment();
     }
