@@ -47,6 +47,27 @@ public class ReversePolishNotationAstPrinter implements Expr.Visitor<String> {
         return expr.right.accept(this) + " " + expr.operator.lexeme;
     }
 
+    @Override
+    public String visitCallExpr(Expr.Call expr) {
+        Expr[] arguments = expr.arguments.toArray(new Expr[expr.arguments.size()]);
+
+        return parenthesize("", arguments) + " " + expr.callee;
+    }
+
+    private String parenthesize(String name, Expr... exprs) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("(").append(name);
+        for (Expr expr : exprs) {
+            builder.append(" ");
+            builder.append(expr.accept(this));
+        }
+        builder.append(")");
+
+        return builder.toString();
+    }
+
+
     // present only for debugging purposes
     public static void main(String[] args) {
       Expr expression = new Expr.Binary(
