@@ -179,7 +179,7 @@ class Parser {
         } while (match(COMMA));
       }
 
-      consume(RIGHT_PAREN, "Expect ')' after " + kind + " paramters.");
+      consume(RIGHT_PAREN, "Expect ')' after " + kind + " parameters.");
       consume(LEFT_BRACE, "Expect '{' before " + kind + " body.");
 
       List<Stmt> body = block();
