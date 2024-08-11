@@ -210,6 +210,13 @@ public class Interpreter implements Expr.Visitor<Object>,
       return function.call(this, arguments);
     }
 
+    @Override
+    public Object visitLambdaExpr(Expr.Lambda expr) {
+      LoxFunction function = new LoxFunction(expr, this.environment);
+
+      return function;
+    }
+
     private void checkNumberOperands(Token operator, Object left, Object right) {
         if (left instanceof Double && right instanceof Double) return;
 

@@ -54,6 +54,16 @@ public class ReversePolishNotationAstPrinter implements Expr.Visitor<String> {
         return parenthesize("", arguments) + " " + expr.callee;
     }
 
+    @Override
+    public String visitLambdaExpr(Expr.Lambda expr) {
+      Token[] params = expr.params.toArray(new Token[expr.params.size()]);
+      String result = "fun (" + parenthesize("", params) + " { ... }";
+
+      return result;
+    }
+
+    // pragma mark - private
+
     private String parenthesize(String name, Expr... exprs) {
         StringBuilder builder = new StringBuilder();
 
@@ -67,6 +77,18 @@ public class ReversePolishNotationAstPrinter implements Expr.Visitor<String> {
         return builder.toString();
     }
 
+    private String parenthesize(String name, Token ... tokens) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("(").append(name);
+        for (Token token : tokens) {
+            builder.append(" ");
+            builder.append(token.lexeme);
+        }
+        builder.append(")");
+
+        return builder.toString();
+    }
 
     // present only for debugging purposes
     public static void main(String[] args) {
