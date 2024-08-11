@@ -77,7 +77,7 @@ public class Interpreter implements Expr.Visitor<Object>,
     public Void visitFunctionStmt(Stmt.Function stmt) {
       LoxFunction function = new LoxFunction(stmt, this.environment);
 
-      environment.define(stmt.name.lexeme, function);
+      this.environment.define(stmt.name.lexeme, function);
 
       return null;
     }
@@ -117,7 +117,7 @@ public class Interpreter implements Expr.Visitor<Object>,
         value = evaluate(stmt.initializer);
       }
 
-      environment.define(stmt.name.lexeme, value);
+      this.environment.define(stmt.name.lexeme, value);
       return null;
     }
 
@@ -264,13 +264,13 @@ public class Interpreter implements Expr.Visitor<Object>,
 
     @Override
     public Object visitVariableExpr(Expr.Variable expr) {
-      return environment.get(expr.name);
+      return this.environment.get(expr.name);
     }
 
     @Override
     public Object visitAssignExpr(Expr.Assign expr) {
       Object value = evaluate(expr.value);
-      environment.assign(expr.name, value);
+      this.environment.assign(expr.name, value);
 
       return value;
     }
